@@ -11,7 +11,7 @@
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(to bottom, #ffecd2, #fcb69f);
       height: 100vh;
-      overflow: hidden;
+      overflow-x: hidden;
       color: #333;
       text-align: center;
     }
@@ -21,11 +21,53 @@
       color: #e91e63;
       animation: glow 2s infinite alternate;
     }
+    h2 {
+      font-size: 2em;
+      margin-top: 0.5em;
+      color: #d81b60;
+    }
     p {
-      font-size: 1.5em;
-      margin: 1em;
+      font-size: 1.3em;
+      margin: 1em auto;
+      max-width: 700px;
       animation: fadeIn 2s ease-in-out;
     }
+    .fun-facts {
+      margin: 1em auto;
+      max-width: 600px;
+      background: rgba(255, 255, 255, 0.75);
+      padding: 1em;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .fun-facts h3 {
+      color: #c2185b;
+      margin-bottom: 0.5em;
+    }
+    .fun-facts ul {
+      list-style: none;
+      padding-left: 0;
+      text-align: left;
+    }
+    .fun-facts li::before {
+      content: "✨ ";
+    }
+
+    .marquee {
+      background: #fff3f3;
+      color: #e91e63;
+      padding: 0.5em;
+      font-weight: bold;
+      white-space: nowrap;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .marquee span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: marquee 20s linear infinite;
+    }
+
     .balloon {
       position: absolute;
       width: 60px;
@@ -66,6 +108,16 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    @keyframes sparkle {
+      0%, 100% { opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    @keyframes marquee {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-100%, 0); }
+    }
+
     .sparkle {
       position: absolute;
       width: 6px;
@@ -75,24 +127,45 @@
       opacity: 0.7;
       animation: sparkle 2s infinite ease-in-out;
     }
-
-    @keyframes sparkle {
-      0%, 100% { opacity: 0; transform: scale(0.5); }
-      50% { opacity: 1; transform: scale(1.2); }
-    }
   </style>
 </head>
 <body>
   <h1>🎉 Happy Birthday Laura! 🎉</h1>
-  <p>You're not just a year older – you're a year bolder, brighter, and more brilliant ✨</p>
-  <p>Wishing you a day full of laughter, cake, and unforgettable moments! 🎂💃</p>
+  <h2>You're not just growing older... you're growing *legendary* 🌟</h2>
+  <p>May this year bring you laughter that echoes, dreams that soar, and cake that's bottomless. 🍰💫</p>
+  
+  <div class="fun-facts">
+    <h3>🎀 Did You Know?</h3>
+    <ul>
+      <li>Laura makes *everything* better just by showing up 💃</li>
+      <li>She has a laugh that's instantly contagious 😂</li>
+      <li>Loves adventure, music, and being fabulously kind 🧭🎵💖</li>
+      <li>🗓️ On the day Laura was born (July 26, 1993), *Free Willy* topped the box office — just like Laura, it made waves and stole hearts 🐋🌟</li>
+      <li>🎶 Gabrielle’s *“Dreams”* was the #1 UK single — you can hear it right here thanks to Spotify 🎧</li>
+    </ul>
+  </div>
 
+  <div class="marquee"><span>💬 “You are never too old to set another goal or to dream a new dream.” — C.S. Lewis ✨</span></div>
+
+  <!-- Spotify Player -->
+  <div style="margin-top: 2em;">
+    <p>🎧 Now playing: <strong>“Dreams” by Gabrielle</strong> (UK #1 when Laura was born)</p>
+    <iframe style="border-radius:12px" 
+      src="https://open.spotify.com/embed/track/0UAKQUNXMfxpWEEtF3UqMs?utm_source=generator" 
+      width="100%" height="80" frameBorder="0" allowfullscreen="" 
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+      loading="lazy">
+    </iframe>
+  </div>
+
+  <!-- Balloons -->
   <div class="balloon"></div>
   <div class="balloon"></div>
   <div class="balloon"></div>
   <div class="balloon"></div>
   <div class="balloon"></div>
 
+  <!-- Sparkles -->
   <script>
     for (let i = 0; i < 50; i++) {
       const sparkle = document.createElement('div');
