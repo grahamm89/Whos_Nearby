@@ -1,177 +1,241 @@
-l<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Happy Birthday Laura!</title>
+  <meta charset="UTF-8">
+  <title>Closest Customer Finder | Diversey UK</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="manifest" href="manifest.json">
   <style>
-    html, body {
+    :root {
+      --primary: #10069F;
+      --accent: #4230C5;
+      --accent-light: #6B55E0;
+      --background: #fff;
+      --card-border: #4230C51a;
+      --text: #222;
+      --radius: 10px;
+    }
+    body {
+      background: var(--background);
+      font-family: 'Segoe UI', Arial, sans-serif;
       margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom, #ffecd2, #fcb69f);
-      height: 100vh;
-      overflow-x: hidden;
-      color: #333;
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 1.5rem 1rem 1rem 1rem;
       text-align: center;
+      letter-spacing: 1px;
     }
-    h1 {
-      font-size: 3em;
-      margin-top: 1em;
-      color: #e91e63;
-      animation: glow 2s infinite alternate;
-    }
-    h2 {
-      font-size: 2em;
-      margin-top: 0.5em;
-      color: #d81b60;
-    }
-    p {
-      font-size: 1.3em;
-      margin: 1em auto;
-      max-width: 700px;
-      animation: fadeIn 2s ease-in-out;
-    }
-    .fun-facts {
-      margin: 1em auto;
-      max-width: 600px;
-      background: rgba(255, 255, 255, 0.75);
-      padding: 1em;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    .fun-facts h3 {
-      color: #c2185b;
+    header .logo {
+      max-width: 100px;
       margin-bottom: 0.5em;
     }
-    .fun-facts ul {
-      list-style: none;
-      padding-left: 0;
-      text-align: left;
+    main {
+      width: 100%;
+      max-width: 420px;
+      margin: 2em auto;
+      padding: 2em 1em 2em 1em;
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: 0 3px 32px #10069f22;
     }
-    .fun-facts li::before {
-      content: "✨ ";
+    h1 {
+      font-size: 1.6em;
+      margin: 0 0 0.4em 0;
+      font-weight: 600;
     }
-
-    .marquee {
-      background: #fff3f3;
-      color: #e91e63;
-      padding: 0.5em;
+    label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 0.3em;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 0.8em;
+      font-size: 1.1em;
+      border: 2px solid var(--accent);
+      border-radius: var(--radius);
+      margin-bottom: 1.2em;
+      transition: border 0.2s;
+    }
+    input[type="text"]:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    button {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      font-size: 1.15em;
+      border-radius: var(--radius);
+      padding: 0.7em 1.6em;
+      cursor: pointer;
+      transition: background 0.15s;
+      font-weight: 600;
+      margin-bottom: 2em;
+      box-shadow: 0 1px 5px #10069f11;
+    }
+    button:hover {
+      background: var(--accent);
+    }
+    .results {
+      margin-top: 1em;
+    }
+    .customer-card {
+      border: 1.5px solid var(--card-border);
+      border-radius: var(--radius);
+      margin-bottom: 1.1em;
+      padding: 1em;
+      background: #f8f9ff;
+      box-shadow: 0 1px 5px #10069f08;
+      transition: box-shadow 0.2s;
+    }
+    .customer-card strong {
+      color: var(--primary);
+      font-size: 1.1em;
+    }
+    .distance {
       font-weight: bold;
-      white-space: nowrap;
-      overflow: hidden;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      color: var(--accent-light);
+      margin-top: 0.3em;
     }
-    .marquee span {
+    .directions {
+      margin-top: 0.5em;
       display: inline-block;
-      padding-left: 100%;
-      animation: marquee 20s linear infinite;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      padding: 0.4em 1em;
+      border-radius: 20px;
+      font-size: 0.97em;
+      transition: background 0.2s;
     }
-
-    .balloon {
-      position: absolute;
-      width: 60px;
-      height: 80px;
-      background: radial-gradient(circle at 30% 30%, #ff4081, #f50057);
-      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-      animation: float 6s ease-in-out infinite;
+    .directions:hover {
+      background: var(--primary);
     }
-    .balloon::after {
-      content: "";
-      position: absolute;
-      bottom: -20px;
-      left: 50%;
-      width: 2px;
-      height: 20px;
-      background: #333;
-      transform: translateX(-50%);
-    }
-    .balloon:nth-child(1) { left: 10%; animation-delay: 0s; }
-    .balloon:nth-child(2) { left: 30%; animation-delay: 1s; background: radial-gradient(circle at 30% 30%, #7c4dff, #651fff); }
-    .balloon:nth-child(3) { left: 50%; animation-delay: 2s; background: radial-gradient(circle at 30% 30%, #00e676, #00c853); }
-    .balloon:nth-child(4) { left: 70%; animation-delay: 3s; background: radial-gradient(circle at 30% 30%, #ff9100, #ff6d00); }
-    .balloon:nth-child(5) { left: 90%; animation-delay: 4s; background: radial-gradient(circle at 30% 30%, #2196f3, #1976d2); }
-
-    @keyframes float {
-      0% { top: 100%; }
-      50% { top: 50%; }
-      100% { top: -100px; }
-    }
-
-    @keyframes glow {
-      0% { text-shadow: 0 0 10px #ff4081; }
-      100% { text-shadow: 0 0 20px #f50057; }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes sparkle {
-      0%, 100% { opacity: 0; transform: scale(0.5); }
-      50% { opacity: 1; transform: scale(1.2); }
-    }
-
-    @keyframes marquee {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(-100%, 0); }
-    }
-
-    .sparkle {
-      position: absolute;
-      width: 6px;
-      height: 6px;
-      background: white;
-      border-radius: 50%;
-      opacity: 0.7;
-      animation: sparkle 2s infinite ease-in-out;
+    @media (max-width: 600px) {
+      main { padding: 1em 0.3em; }
+      header { padding: 1em 0.4em 0.7em 0.4em; }
     }
   </style>
 </head>
 <body>
-  <h1>🎉 Happy Birthday Laura! 🎉</h1>
-  <h2>You're not just growing older... you're growing *legendary* 🌟</h2>
-  <p>May this year bring you laughter that echoes, dreams that soar, and cake that's bottomless. 🍰💫</p>
-
-  <div class="fun-facts">
-    <h3>🎀 Did You Know?</h3>
-    <ul>
-      <li>Laura makes *everything* better just by showing up 💃</li>
-      <li>🗓️ On the day Laura was born (July 26, 1993), *Free Willy* topped the box office — just like Laura, it made waves and stole hearts 🐋🌟</li>
-      <li>🎶 “Pray” by Take That was the UK’s #1 hit — their first ever chart-topper and an iconic 90s anthem 🎤✨</li>
-    </ul>
-  </div>
-
-  <div class="marquee"><span>💬 “You are never too old to set another goal or to dream a new dream.” — C.S. Lewis ✨</span></div>
-
-  <!-- YouTube Embed -->
-  <div style="margin-top: 2em;">
-    <p>🎧 Want to hear the #1 song from Laura’s birthday?</p>
-    <iframe width="100%" height="315" style="max-width:660px"
-      src="https://www.youtube.com/embed/QbsAqs3YHyg" 
-      title="Pray by Take That" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-    </iframe>
-    <p><a href="https://youtu.be/QbsAqs3YHyg" target="_blank" rel="noopener">Or open it directly on YouTube</a></p>
-  </div>
-
-  <!-- Balloons -->
-  <div class="balloon"></div>
-  <div class="balloon"></div>
-  <div class="balloon"></div>
-  <div class="balloon"></div>
-  <div class="balloon"></div>
-
-  <!-- Sparkles -->
+  <header>
+    <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Diversey_logo_2020.svg" alt="Diversey Logo">
+    <h1>Closest Customer Finder</h1>
+    <div style="font-size:1em;font-weight:300;letter-spacing:0.2px;">Field Service • UK</div>
+  </header>
+  <main>
+    <form id="postcode-form" autocomplete="off">
+      <label for="postcode">Enter your current postcode</label>
+      <input id="postcode" type="text" placeholder="e.g. RG9 2BN" required>
+      <button type="submit">Find Closest Customers</button>
+    </form>
+    <div class="results" id="results"></div>
+  </main>
   <script>
-    for (let i = 0; i < 50; i++) {
-      const sparkle = document.createElement('div');
-      sparkle.classList.add('sparkle');
-      sparkle.style.top = `${Math.random() * 100}%`;
-      sparkle.style.left = `${Math.random() * 100}%`;
-      sparkle.style.animationDelay = `${Math.random() * 3}s`;
-      document.body.appendChild(sparkle);
+    // MOCK customer data with lat/lng
+    const customers = [
+      {
+        name: 'WAITROSE',
+        group: 'JLP - WAITROSE',
+        address: '33 Bell Street Henley On Thames Oxfordshire',
+        postcode: 'RG9 2BA',
+        lat: 51.537372,
+        lng: -0.906066,
+      },
+      {
+        name: 'ZIZZI',
+        group: 'AZZURRI GROUP',
+        address: 'The Former White Hart, Henley On Thames',
+        postcode: 'RG9 2AR',
+        lat: 51.537574,
+        lng: -0.904303,
+      },
+      {
+        name: 'REGAL PICTUREHOUSE',
+        group: 'CITY SCREENS TA PICTUREHOUSE CINEMAS',
+        address: '2 Boroma Way, Henley-On-Thames',
+        postcode: 'RG9 2BZ',
+        lat: 51.537131,
+        lng: -0.906170,
+      },
+      {
+        name: 'RUPERT HOUSE',
+        group: 'ACCENT CATERING',
+        address: '90-92 Bell Street, Henley On Thames',
+        postcode: 'RG9 2BN',
+        lat: 51.537428,
+        lng: -0.906569,
+      },
+      // Add more entries as needed...
+    ];
+
+    // Quick-and-dirty UK postcode geocode table (sample for RG9)
+    const postcodeCoords = {
+      "RG9 2BA": {lat: 51.537372, lng: -0.906066},
+      "RG9 2AR": {lat: 51.537574, lng: -0.904303},
+      "RG9 2BZ": {lat: 51.537131, lng: -0.906170},
+      "RG9 2BN": {lat: 51.537428, lng: -0.906569}
+    };
+
+    // Haversine formula for km
+    function distanceKM(lat1, lon1, lat2, lon2) {
+      function toRad(x) { return x * Math.PI / 180; }
+      var R = 6371;
+      var dLat = toRad(lat2 - lat1);
+      var dLon = toRad(lon2 - lon1);
+      var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+              Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+              Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c;
     }
+
+    // Simple postcode to lat/lng
+    function getLatLng(postcode) {
+      return postcodeCoords[postcode.trim().toUpperCase()] || null;
+    }
+
+    document.getElementById("postcode-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const userPostcode = document.getElementById("postcode").value.trim().toUpperCase();
+      const userCoords = getLatLng(userPostcode);
+      const resultsDiv = document.getElementById("results");
+
+      if (!userCoords) {
+        resultsDiv.innerHTML = `<div style="color:#c00;">Sorry, we don't have location data for that postcode.<br>Please try RG9 2BA or similar for the demo.</div>`;
+        return;
+      }
+
+      // Calculate distances
+      let found = customers.map(cust => {
+        const dist = distanceKM(userCoords.lat, userCoords.lng, cust.lat, cust.lng);
+        return {...cust, dist};
+      });
+
+      found.sort((a,b) => a.dist - b.dist);
+      let html = "";
+
+      found.slice(0, 3).forEach((c, i) => {
+        html += `<div class="customer-card">
+          <strong>${i+1}. ${c.name}</strong><br>
+          <span style="font-size:0.98em;">${c.group}</span><br>
+          ${c.address}<br>
+          <b>${c.postcode}</b>
+          <div class="distance">Distance: ${c.dist.toFixed(2)} km</div>
+          <a class="directions" target="_blank" href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(c.postcode)}">Directions</a>
+        </div>`;
+      });
+
+      resultsDiv.innerHTML = html;
+    });
   </script>
 </body>
 </html>
