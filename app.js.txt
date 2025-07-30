@@ -1,0 +1,91 @@
+// Demo customers, loaded dynamically in real version
+let customers = [
+  {
+    name: "WAITROSE",
+    group: "JLP - WAITROSE",
+    address: "33 Bell Street Henley On Thames Oxfordshire",
+    postcode: "RG9 2BA",
+    lat: 51.537372,
+    lng: -0.906066
+  },
+  {
+    name: "ZIZZI",
+    group: "AZZURRI GROUP",
+    address: "The Former White Hart, Henley On Thames",
+    postcode: "RG9 2AR",
+    lat: 51.537574,
+    lng: -0.904303
+  },
+  {
+    name: "REGAL PICTUREHOUSE",
+    group: "CITY SCREENS TA PICTUREHOUSE CINEMAS",
+    address: "2 Boroma Way, Henley-On-Thames",
+    postcode: "RG9 2BZ",
+    lat: 51.537131,
+    lng: -0.906170
+  },
+  {
+    name: "RUPERT HOUSE",
+    group: "ACCENT CATERING",
+    address: "90-92 Bell Street, Henley On Thames",
+    postcode: "RG9 2BN",
+    lat: 51.537428,
+    lng: -0.906569
+  }
+];
+
+function distanceKM(lat1, lon1, lat2, lon2) {
+  function toRad(x) { return x * Math.PI / 180; }
+  var R = 6371;
+  var dLat = toRad(lat2 - lat1);
+  var dLon = toRad(lon2 - lon1);
+  var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+          Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+          Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+}
+
+const postcodeCoords = {
+  "RG9 2BA": {lat: 51.537372, lng: -0.906066},
+  "RG9 2AR": {lat: 51.537574, lng: -0.904303},
+  "RG9 2BZ": {lat: 51.537131, lng: -0.906170},
+  "RG9 2BN": {lat: 51.537428, lng: -0.906569}
+};
+
+function getLatLng(postcode) {
+  return postcodeCoords[postcode.trim().toUpperCase()] || null;
+}
+
+document.getElementById("postcode-form").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const userPostcode = document.getElementById("postcode").value.trim().toUpperCase();
+  const userCoords = getLatLng(userPostcode);
+  const resultsDiv = document.getElementById("results");
+
+  if (!userCoords) {
+    resultsDiv.innerHTML = `<div style="color:#c00;">Sorry, we don't have location data for that postcode.<br>Please try RG9 2BA or similar for the demo.</div>`;
+    return;
+  }
+
+  let found = customers.map(cust => {
+    const dist = distanceKM(userCoords.lat, userCoords.lng, cust.lat, cust.lng);
+    return {...cust, dist};
+  });
+
+  found.sort((a,b) => a.dist - b.dist);
+  let html = "";
+
+  found.slice(0, 3).forEach((c, i) => {
+    html += `<div class="customer-card">
+      <strong>${i+1}. ${c.name}</strong><br>
+      <span style="font-size:0.98em;">${c.group}</span><br>
+      ${c.address}<br>
+      <b>${c.postcode}</b>
+      <div class="distance">Distance: ${c.dist.toFixed(2)} km</div>
+      <a class="directions" target="_blank" href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(c.postcode)}">Directions</a>
+    </div>`;
+  });
+
+  resultsDiv.innerHTML = html;
+});
