@@ -1,0 +1,18 @@
+<!DOCTYPE html><html><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Customer Cards</title><link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<style>body{font-family:sans-serif;padding:1em}.card{border:1px solid #ccc;padding:1em;margin-bottom:1em;border-radius:6px}</style>
+</head><body><h1>Customer Cards</h1><input id="search" placeholder="Search name or postcode..."><div id="results"></div>
+<script>
+let customers = []; const $r = document.getElementById("results"), $s = document.getElementById("search");
+fetch("assets/customers.json").then(r => r.json()).then(data => { customers = data; draw(data); });
+$s.addEventListener("input", e => {
+  const q = e.target.value.toLowerCase();
+  draw(customers.filter(c => c.locationName.toLowerCase().includes(q) || c.postcode.toLowerCase().includes(q)));
+});
+function draw(list) {
+  $r.innerHTML = list.map(c => `<div class='card'><b>${c.locationName}</b><br>${c.groupName}<br>${c.address}<br><code>${c.postcode}</code></div>`).join('');
+}
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
+</script></body></html>
